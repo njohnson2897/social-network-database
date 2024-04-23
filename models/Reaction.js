@@ -1,0 +1,8 @@
+reactionId
+
+reactionBody
+
+username
+
+createdAt
+

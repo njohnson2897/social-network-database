@@ -1,0 +1,4 @@
+thoughtText
+createdAt
+username
+reactions
