@@ -68,12 +68,42 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-
+    // add reaction to thought - req.body should look like this: { "reactionBody": ".....", "username": "......."}
     async addReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $addToSet: { reactions: req.body }},
+                { new: true }
+            );
 
+            if(!thought) {
+                return res.status(404).json( { message: 'No thought found with that ID'});
+            }
+
+            res.json('Reaction added');
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
     },
 
     async removeReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId},
+                { $pull: { reactions: req.params.reactionId }},
+                { new: true },
+            )
 
+            if(!thought) {
+                return res.status(404).json({ message: 'No thought found by that ID'});
+            }
+
+            res.status(200).json({ message: "Reaction successfully removed"});
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
     },
 }
