@@ -27,3 +27,7 @@ const reactionSchema = new Schema(
         },
     },
 );
+
+// exports the schema but we don't create a model because reactions will not be in database 
+// ... as their own collection, only attached to Thoughts
+module.exports = reactionSchema;
