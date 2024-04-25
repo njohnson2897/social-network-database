@@ -27,10 +27,16 @@ module.exports = {
             return res.status(500).json(err);
         }
     },
-    // create thought - req.body should look like this: { "thoughtText": ".......", "username": "......."}
+    // create thought - req.body should look like this: { "thoughtText": ".......", "username": ".......", "userId": "....."}
     async addThought(req, res) {
         try {
             const thought = await Thought.create(req.body);
+            const user = await User.findOneAndUpdate(
+                { _id: req.body.userId },
+                { $addToSet: { thoughts: thought._id }},
+                { runValidators: true, new: true },
+            );
+
             res.json(thought);
         }  catch (err) {
             res.status(500).json(err);
@@ -39,7 +45,12 @@ module.exports = {
     // DELETE thought by ID
     async removeThought(req, res) {
         try {
-            const thought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
+            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+
+            // $pull from array to remove thought from user's thoughts
+            // { _id: req.params.thoughtId},
+            // { $pull: { reactions: { reactionId: req.params.reactionId } }},
+            // { new: true },
 
             if (!thought) {
                 return res.status(404).json({ message: 'No thought with that ID'});
@@ -56,7 +67,7 @@ module.exports = {
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $set: req.body },
-                // run validators?
+                { runValidators: true, new: true }
             );
 
             if (!thought) {
@@ -87,12 +98,13 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-
+    
+    // delete reaction by ID route
     async removeReaction(req, res) {
         try {
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId},
-                { $pull: { reactions: req.params.reactionId }},
+                { $pull: { reactions: { reactionId: req.params.reactionId } }},
                 { new: true },
             )
 
