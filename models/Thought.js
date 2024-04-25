@@ -14,12 +14,12 @@ const thoughtSchema  = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
+            // I got help with this getter method from my tutor Jaytee Padilla
             get: (timestamp) => dateFormat(timestamp)
         },
         username: {
             type: String,
             required: true,
-            // ref: 'user'
         },
         reactions: [reactionSchema],
     },
@@ -30,8 +30,7 @@ const thoughtSchema  = new Schema(
     },
 );
 
-// to do:  Schema Settings:
-// Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
+// virtual that will include "reactionCount" in thoughts data when queried
 thoughtSchema.virtual('reactionCount').get(function() {
 
 })

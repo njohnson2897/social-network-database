@@ -1,3 +1,4 @@
+// I got this helper function and the exported anonymous function below from my tutor Jaytee Padilla
 const addDateSuffix = (date) => {
     let dateStr = date.toString();
   

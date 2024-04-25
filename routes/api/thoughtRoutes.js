@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+// imports all functions from thought controller file
 const {
     getThoughts,
     addThought,
@@ -10,27 +11,18 @@ const {
     removeReaction,
 } = require('../../controllers/thoughtController');
 
-// /api/thoughts
-// GET all thoughts
-// POST new thought, don't forget to push created thought's _id to the user's thoughts array field
-
+// all methods needed for /api/thoughts route
 router.route('/').get(getThoughts).post(addThought);
 
-// /api/:thoughtId
-// GET thought by _id
-// UPDATE thought by _id
-// DELETE thought by _id
-
+// all methods needed for /api/thoughts/:thoughtId  route
 router.route('/:thoughtId').get(getSingleThought).put(updateThought).delete(removeThought);
 
 
-// /api/thoughts/:thoughtId/reactions
-// POST new reaction stored in thought's reactions array
-
+// post method for /api/thoughts/:thoughtId/reactions route
 router.route('/:thoughtId/reactions').post(addReaction)
 
 
-// DELETE reaction by reactionId
+// delete method for /api/thoughts/:thoughtId/reactions/:reactionId route
 router.route('/:thoughtId/reactions/:reactionId').delete(removeReaction)
 
 module.exports = router;

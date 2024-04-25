@@ -1,5 +1,4 @@
-const { ObjectId } = require('mongoose').Types;
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
 module.exports = {
     // get all users
@@ -88,7 +87,7 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    // removes "friend" user and also pulls the friend from another user's friends array
+    // removes "friend" user from another user's friends array
     // /api/users/:userId/friends/:friendId
     async removeFriend(req, res) {
         try {
