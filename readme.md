@@ -16,7 +16,7 @@ The following is a screenshot of an Insomnia client indicating the types and num
 ![insomnia routes screenshot](./images/insomnia-routes-screenshot.JPG)
 
 The following is a link to a walkthrough video that demonstrates all of the functionality of the program:
-[Social Network Database Walkthrough Video]()
+[Social Network Database Walkthrough Video](https://drive.google.com/file/d/1nDwfcFQjN2PX2zQhUagsw45xOCQc3wNl/view)
 
 ## Contributing
 N/A
